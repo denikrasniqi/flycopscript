@@ -8,6 +8,7 @@ import time
 from flask import Flask, jsonify, request
 import logging
 # from airpristina import run_airprishtina_ticket_script
+from airpristina import run_airprishtina_ticket_script
 from ark import run_arkpy_ticket_script
 from flyska import run_flyska_ticket_script
 from kosfly import run_kosfly_ticket_script
@@ -63,13 +64,14 @@ def run_scripts():
             run_flyska_ticket_script,
             run_kosfly_ticket_script,
             run_arkpy_ticket_script,
-            run_flyrbp_ticket_script
+            run_flyrbp_ticket_script,
+            run_airprishtina_ticket_script
         ]  # Add other script functions here
 
         # Run each script sequentially with a delay
         for script in scripts:
             run_script_in_thread(script)
-            time.sleep(120)  # Adjust the delay as needed
+            time.sleep(10)  # Adjust the delay as needed
 
         return jsonify({'message': 'Scripts started'}), 200
     except Exception as e:

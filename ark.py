@@ -40,7 +40,7 @@ def extract_flight_info(page_html, target_date):
                 price_cell = row.select_one('td.b_ges_preis')
 
                 flight = {
-                    'date': flight_date,
+                    'date': target_date,
                     'time': time_cell.get_text(strip=True) if time_cell else 'N/A',
                     'flight_number': flight_number_cell.get_text(strip=True) if flight_number_cell else 'N/A',
                     'price': price_cell.get_text(strip=True) if price_cell else 'N/A'
