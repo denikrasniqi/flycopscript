@@ -53,13 +53,6 @@ def extract_flight_info_for_day(page, target_date):
 
     return flights
 
-def navigate_to_date(page, target_date):
- 
-        # Print the status
-        print(f"Navigated to {displayed_month}/{displayed_year}")
-
-        page.wait_for_timeout(1000)
-
 def run_flyska_ticket_script():
     airport_pairs = [
         ('MLH,BSL', 'PRN'),
