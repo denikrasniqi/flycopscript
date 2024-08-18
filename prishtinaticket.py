@@ -111,7 +111,7 @@ def run_prishtina_ticket_script():
         'München (MUC)': 'MUC',
         'Nürnberg (NUE)': 'NUE',
         'Stuttgart (STR)': 'STR',
-        'Basel/Mulhouse (MLH)':'(MLH)'
+        'Basel/Mulhouse (MLH)':'BSL'
     }
 
     for departure, arrival in airport_pairs:

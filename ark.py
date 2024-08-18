@@ -61,6 +61,9 @@ def run_arkpy_ticket_script():
         ('PRN', 'NUE'),
         ('NUE', 'PRN'),
     ]
+    city_to_airport_code = {
+        'MLH': 'BSL',
+    }
 
     for departure, arrival in airport_pairs:
         for day in range(0, 8):
@@ -115,7 +118,15 @@ def run_arkpy_ticket_script():
                 page_html = page.content()
                 flights = extract_flight_info(page_html, target_date)
                 print(flights)
+                original_departure = departure
+                original_arrival = arrival
+                departure = city_to_airport_code.get(departure, departure)
+                arrival = city_to_airport_code.get(arrival, arrival)
                 save_flights(flights, departure, arrival, day, url)
+
+                # Revert to original airport codes after saving
+                departure = original_departure
+                arrival = original_arrival
                 print(f"Flight information saved for {departure} to {arrival} on day {day}")
 
                 browser.close()

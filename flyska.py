@@ -64,6 +64,9 @@ def run_flyska_ticket_script():
         ('PRN', 'MLH,BSL'),
         ('MUC', 'PRN'),
     ]
+    city_to_airport_code = {
+        'MLH,BSL': 'BSL',
+    }
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)  # Use headless=True for production
         context = browser.new_context(
@@ -137,7 +140,15 @@ def run_flyska_ticket_script():
                     
                     if flights:
                         # Save the flight information to the database
+                        original_departure = departure
+                        original_arrival = arrival
+                        departure = city_to_airport_code.get(departure, departure)
+                        arrival = city_to_airport_code.get(arrival, arrival)
                         save_flights(flights, departure, arrival, day, url)
+
+                        # Revert to original airport codes after saving
+                        departure = original_departure
+                        arrival = original_arrival
                         print(f"Flight information saved for {departure} to {arrival} on day {day}")
                     else:
                         print(f"No flight data found for {departure} to {arrival} on {target_date_str}")

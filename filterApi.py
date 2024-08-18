@@ -66,12 +66,15 @@ def run_scripts():
             run_arkpy_ticket_script,
             run_flyrbp_ticket_script,
             run_airprishtina_ticket_script
-        ]  # Add other script functions here
+        ]
 
-        # Run each script sequentially with a delay
-        for script in scripts:
-            run_script_in_thread(script)
-            time.sleep(10)  # Adjust the delay as needed
+        # Use ThreadPoolExecutor to run multiple scripts concurrently
+        with ThreadPoolExecutor(max_workers=2) as executor:  # Adjust max_workers as needed
+            futures = [executor.submit(run_script_in_thread, script) for script in scripts]
+            
+            # Optionally, wait for all futures to complete (blocking call)
+            for future in futures:
+                future.result()  # This will raise exceptions if any occurred during script execution
 
         return jsonify({'message': 'Scripts started'}), 200
     except Exception as e:
