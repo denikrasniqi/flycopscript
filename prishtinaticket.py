@@ -115,7 +115,7 @@ def run_prishtina_ticket_script():
     }
 
     for departure, arrival in airport_pairs:
-        for day in range(1, 8):
+        for day in range(0, 8):
             with sync_playwright() as p:
                 browser = p.chromium.launch(headless=True)
                 context = browser.new_context(

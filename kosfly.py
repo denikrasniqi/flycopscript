@@ -86,7 +86,7 @@ def run_kosfly_ticket_script():
         page = context.new_page()
 
         for departure, arrival in airport_pairs:
-            for day in range(1, 8):
+            for day in range(0, 8):
                 url = 'https://www.kosova-fly.de/'
                 page.goto(url)
                 random_sleep(2, 3)
